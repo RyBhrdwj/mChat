@@ -5,12 +5,13 @@ import toast from "react-hot-toast";
 const useGetMessages = () => {
 	const [loading, setLoading] = useState(false);
 	const { messages, setMessages, selectedConversation } = useConversation();
+	const API_URL = import.meta.env.VITE_API_URL;
 
 	useEffect(() => {
 		const getMessages = async () => {
 			setLoading(true);
 			try {
-				const res = await fetch(`/api/messages/${selectedConversation._id}`);
+				const res = await fetch(`${API_URL}/api/messages/${selectedConversation._id}`);
 				const data = await res.json();
 				if (data.error) throw new Error(data.error);
 				setMessages(data);
